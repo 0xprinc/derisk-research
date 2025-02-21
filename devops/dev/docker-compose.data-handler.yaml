@@ -9,6 +9,8 @@ services:
     build:
       context: ../../apps
       dockerfile: data_handler/Dockerfile
+      platforms:
+        - linux/amd64  # Specify Linux platform
     restart: always
     volumes:
       - ../../apps/:/app
@@ -45,6 +47,8 @@ services:
     build:
       context: ../../apps
       dockerfile: data_handler/Dockerfile
+      platforms:
+        - linux/amd64  # Specify Linux platform
     command: celery -A data_handler.celery_app.celery_conf worker --loglevel=INFO
     environment:
       - PYTHONPATH=/app
@@ -60,6 +64,8 @@ services:
     build:
       context: ../../apps/data_handler/nginx
       dockerfile: Dockerfile
+      platforms:
+        - linux/amd64  # Specify Linux platform
     command: celery -A celery_app.celery_conf beat --loglevel=INFO
     environment:
       - PYTHONPATH=/app
